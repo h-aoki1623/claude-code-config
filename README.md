@@ -1,1 +1,1 @@
-# claude-code-config
+# Claude Code Config
