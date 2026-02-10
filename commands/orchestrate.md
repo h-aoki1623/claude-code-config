@@ -1,6 +1,6 @@
 # Orchestrate Command
 
-Sequential agent workflow for complex tasks.
+Agent workflow execution aligned with [workflow.md](../rules/common/workflow.md).
 
 ## Usage
 
@@ -9,21 +9,27 @@ Sequential agent workflow for complex tasks.
 ## Workflow Types
 
 ### feature
-Full feature implementation workflow:
+Spec-Driven feature implementation:
 ```
-planner -> tdd-guide -> code-reviewer -> security-reviewer
+architect -> planner -> frontend-implementer ‖ backend-implementer -> build-error-resolver -> tester -> code-reviewer ‖ security-reviewer ‖ database-reviewer ‖ python-reviewer -> e2e-tester -> doc-updater
 ```
 
 ### bugfix
-Bug investigation and fix workflow:
+Reproduce-First bug fix:
 ```
-explorer -> tdd-guide -> code-reviewer
+explorer -> [reproduce + fix] -> code-reviewer ‖ security-reviewer ‖ python-reviewer
 ```
 
 ### refactor
-Safe refactoring workflow:
+Safety-Net-First refactoring:
 ```
-architect -> code-reviewer -> tdd-guide
+refactor-cleaner -> architect -> [refactor] -> code-reviewer ‖ security-reviewer ‖ python-reviewer ‖ build-error-resolver
+```
+
+### db-change
+Schema-First database change:
+```
+architect -> database-reviewer -> [implement] -> code-reviewer ‖ security-reviewer ‖ python-reviewer
 ```
 
 ### security
@@ -32,13 +38,15 @@ Security-focused review:
 security-reviewer -> code-reviewer -> architect
 ```
 
+`->` = sequential, `‖` = parallel
+
 ## Execution Pattern
 
 For each agent in the workflow:
 
 1. **Invoke agent** with context from previous agent
 2. **Collect output** as structured handoff document
-3. **Pass to next agent** in chain
+3. **Pass to next agent** in chain (or launch parallel agents)
 4. **Aggregate results** into final report
 
 ## Handoff Document Format
@@ -72,28 +80,42 @@ Between agents, create handoff document:
 
 Executes:
 
-1. **Planner Agent**
-   - Analyzes requirements
-   - Creates implementation plan
-   - Identifies dependencies
-   - Output: `HANDOFF: planner -> tdd-guide`
+1. **Architect Agent**
+   - Designs system architecture and trade-offs
+   - Documents key decisions
+   - Output: `HANDOFF: architect -> planner`
 
-2. **TDD Guide Agent**
-   - Reads planner handoff
-   - Writes tests first
-   - Implements to pass tests
-   - Output: `HANDOFF: tdd-guide -> code-reviewer`
+2. **Planner Agent**
+   - Creates step-by-step implementation plan
+   - Breaks down into phases with dependencies
+   - Output: `HANDOFF: planner -> [implement]`
 
-3. **Code Reviewer Agent**
-   - Reviews implementation
-   - Checks for issues
-   - Suggests improvements
-   - Output: `HANDOFF: code-reviewer -> security-reviewer`
+3. **Implementation Phase** (parallel where applicable)
+   - **frontend-implementer**: UI components, state, API integration (based on API contracts + UI design)
+   - **backend-implementer**: API endpoints, DB operations, business logic (based on API contracts + DB design)
+   - Output: `HANDOFF: [implement] -> build-error-resolver`
 
-4. **Security Reviewer Agent**
-   - Security audit
-   - Vulnerability check
-   - Final approval
+4. **Build Verification**
+   - **build-error-resolver**: Fix any build/type errors
+   - Output: `HANDOFF: build-error-resolver -> tester`
+
+5. **Tester Agent**
+   - Writes unit tests and integration tests
+   - Ensures 80%+ coverage
+   - Output: `HANDOFF: tester -> [review]`
+
+6. **Review Phase** (parallel)
+   - **code-reviewer**: quality, patterns, maintainability
+   - **security-reviewer**: vulnerabilities, secrets
+   - **python-reviewer**: PEP 8, Pythonic idioms (Python projects)
+   - Output: Combined review report
+
+7. **E2E Tester Agent**
+   - Tests critical user flows
+   - Output: E2E test report
+
+8. **Doc Updater Agent**
+   - Updates codemaps and documentation
    - Output: Final Report
 
 ## Final Report Format
@@ -101,9 +123,9 @@ Executes:
 ```
 ORCHESTRATION REPORT
 ====================
-Workflow: feature
-Task: Add user authentication
-Agents: planner -> tdd-guide -> code-reviewer -> security-reviewer
+Workflow: [type]
+Task: [description]
+Agents: [agent chain]
 
 SUMMARY
 -------
@@ -111,10 +133,7 @@ SUMMARY
 
 AGENT OUTPUTS
 -------------
-Planner: [summary]
-TDD Guide: [summary]
-Code Reviewer: [summary]
-Security Reviewer: [summary]
+[Agent name]: [summary] (per agent used)
 
 FILES CHANGED
 -------------
@@ -124,49 +143,35 @@ TEST RESULTS
 ------------
 [Test pass/fail summary]
 
-SECURITY STATUS
----------------
-[Security findings]
+REVIEW STATUS
+-------------
+[Review findings by severity]
 
 RECOMMENDATION
 --------------
 [SHIP / NEEDS WORK / BLOCKED]
 ```
 
-## Parallel Execution
-
-For independent checks, run agents in parallel:
-
-```markdown
-### Parallel Phase
-Run simultaneously:
-- code-reviewer (quality)
-- security-reviewer (security)
-- architect (design)
-
-### Merge Results
-Combine outputs into single report
-```
-
 ## Arguments
 
 $ARGUMENTS:
-- `feature <description>` - Full feature workflow
-- `bugfix <description>` - Bug fix workflow
-- `refactor <description>` - Refactoring workflow
+- `feature <description>` - Spec-Driven feature workflow
+- `bugfix <description>` - Reproduce-First bug fix workflow
+- `refactor <description>` - Safety-Net-First refactoring workflow
+- `db-change <description>` - Schema-First database change workflow
 - `security <description>` - Security review workflow
 - `custom <agents> <description>` - Custom agent sequence
 
 ## Custom Workflow Example
 
 ```
-/orchestrate custom "architect,tdd-guide,code-reviewer" "Redesign caching layer"
+/orchestrate custom "architect,database-reviewer,code-reviewer" "Redesign caching layer"
 ```
 
 ## Tips
 
-1. **Start with planner** for complex features
+1. **Start with architect** for complex features and DB changes
 2. **Always include code-reviewer** before merge
 3. **Use security-reviewer** for auth/payment/PII
-4. **Keep handoffs concise** - focus on what next agent needs
-5. **Run verification** between agents if needed
+4. **Run review agents in parallel** for faster feedback
+5. **Keep handoffs concise** - focus on what next agent needs

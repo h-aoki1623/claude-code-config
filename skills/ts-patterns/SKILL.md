@@ -1,17 +1,17 @@
 ---
-name: ts-js-patterns
-description: Coding standards, best practices, and patterns for TypeScript, JavaScript, React, and Node.js development.
+name: ts-patterns
+description: Coding standards, best practices, and patterns for TypeScript, React, and Node.js development.
 ---
 
-# TypeScript/JavaScript Development Patterns
+# TypeScript Development Patterns
 
-Idiomatic TypeScript/JavaScript patterns and best practices for building robust, efficient, and maintainable applications.
+Idiomatic TypeScript patterns and best practices for building robust, efficient, and maintainable applications.
 
 ## When to Activate
 
-- Writing new TypeScript/JavaScript code
-- Reviewing TypeScript/JavaScript code
-- Refactoring existing TypeScript/JavaScript code
+- Writing new TypeScript code
+- Reviewing TypeScript code
+- Refactoring existing TypeScript code
 - Designing React components or Node.js packages/modules
 
 ## Core Principles
@@ -40,7 +40,7 @@ Idiomatic TypeScript/JavaScript patterns and best practices for building robust,
 - Add complexity only when required
 - Start simple, refactor when needed
 
-## TypeScript/JavaScript Standards
+## TypeScript Standards
 
 ### Variable Naming
 

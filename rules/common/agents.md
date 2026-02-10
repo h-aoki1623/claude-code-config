@@ -6,44 +6,46 @@ Located in `~/.claude/agents/`:
 
 | Agent | Purpose | When to Use |
 |-------|---------|-------------|
-| planner | Implementation planning | Complex features, refactoring |
-| architect | System design | Architectural decisions |
-| tdd-guide | Test-driven development | New features, bug fixes |
-| code-reviewer | Code review | After writing code |
-| security-reviewer | Security analysis | Before commits |
-| build-error-resolver | Fix build errors | When build fails |
-| e2e-runner | E2E testing | Critical user flows |
-| refactor-cleaner | Dead code cleanup | Code maintenance |
-| doc-updater | Documentation | Updating docs |
+| planner | Implementation planning | Feature workflow: Phase 2 |
+| architect | System design, trade-off analysis | Feature, Refactor, DB Change workflows |
+| frontend-implementer | Frontend implementation (components, state, API integration) | Feature workflow: Phase 3 |
+| backend-implementer | Backend implementation (API, DB, business logic) | Feature workflow: Phase 3 |
+| code-reviewer | Code quality review | All workflows (Review step) |
+| security-reviewer | Vulnerability detection | All workflows (Review step) |
+| database-reviewer | Schema, query, RLS review | Feature (DB changes), DB Change workflow |
+| python-reviewer | PEP 8, type hints, Pythonic idioms | All workflows (Python projects) |
+| tester | Unit tests + integration tests | All workflows (Test writing step) |
+| e2e-tester | E2E testing | All workflows (E2E test step) |
+| build-error-resolver | Fix build/type errors | When build fails |
+| refactor-cleaner | Dead code detection, cleanup | Refactor workflow |
+| doc-updater | Codemaps, documentation | Feature workflow: Phase 5 |
+| python-advisor | Python education, Q&A | On-demand (not in workflows) |
 
-## Immediate Agent Usage
+## Automatic Agent Selection
 
-No user prompt needed:
-1. Complex feature requests - Use **planner** agent
-2. Code just written/modified - Use **code-reviewer** agent
-3. Bug fix or new feature - Use **tdd-guide** agent
-4. Architectural decision - Use **architect** agent
+Select agents based on workflow type (see [workflow.md](workflow.md)):
+
+| Workflow | Agents Used |
+|---|---|
+| **Feature** | architect → planner → frontend-implementer ‖ backend-implementer → build-error-resolver → tester → code-reviewer ‖ security-reviewer ‖ database-reviewer ‖ python-reviewer → e2e-tester → doc-updater |
+| **Bugfix** | explorer → code-reviewer ‖ security-reviewer ‖ python-reviewer |
+| **Refactor** | refactor-cleaner → architect → code-reviewer ‖ security-reviewer ‖ python-reviewer ‖ build-error-resolver |
+| **DB Change** | architect → database-reviewer → security-reviewer ‖ code-reviewer ‖ python-reviewer |
+| **Docs** | doc-updater |
+
+`→` = sequential, `‖` = parallel
 
 ## Parallel Task Execution
 
 ALWAYS use parallel Task execution for independent operations:
 
 ```markdown
-# GOOD: Parallel execution
-Launch 3 agents in parallel:
-1. Agent 1: Security analysis of auth.ts
-2. Agent 2: Performance review of cache system
-3. Agent 3: Type checking of utils.ts
+# GOOD: Parallel execution (Review step)
+Launch agents in parallel:
+1. code-reviewer: quality review
+2. security-reviewer: vulnerability check
+3. python-reviewer: PEP 8 compliance
 
 # BAD: Sequential when unnecessary
-First agent 1, then agent 2, then agent 3
+First code-reviewer, then security-reviewer, then python-reviewer
 ```
-
-## Multi-Perspective Analysis
-
-For complex problems, use split role sub-agents:
-- Factual reviewer
-- Senior engineer
-- Security expert
-- Consistency reviewer
-- Redundancy checker
