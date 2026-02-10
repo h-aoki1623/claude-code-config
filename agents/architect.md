@@ -209,3 +209,15 @@ Example architecture for an AI-powered SaaS platform:
 - **10M users**: Event-driven architecture, distributed caching, multi-region
 
 **Remember**: Good architecture enables rapid development, easy maintenance, and confident scaling. The best architecture is simple, clear, and follows established patterns.
+
+## Skills Used Reporting
+
+At the end of your response, you MUST include a "Skills Used" section listing all skills and rules you referenced or applied during this task.
+
+Format:
+```
+### Skills Used
+- **<skill-or-rule-name>**: <brief description of how it was applied>
+```
+
+If no skills or rules were referenced, report "None".

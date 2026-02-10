@@ -102,3 +102,15 @@ Add your project-specific checks here. Examples:
 - Validate cache fallback behavior
 
 Customize based on your project's `CLAUDE.md` or skill files.
+
+## Skills Used Reporting
+
+At the end of your response, you MUST include a "Skills Used" section listing all skills and rules you referenced or applied during this task.
+
+Format:
+```
+### Skills Used
+- **<skill-or-rule-name>**: <brief description of how it was applied>
+```
+
+If no skills or rules were referenced, report "None".

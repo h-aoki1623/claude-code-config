@@ -530,3 +530,15 @@ After build error resolution:
 ---
 
 **Remember**: The goal is to fix errors quickly with minimal changes. Don't refactor, don't optimize, don't redesign. Fix the error, verify the build passes, move on. Speed and precision over perfection.
+
+## Skills Used Reporting
+
+At the end of your response, you MUST include a "Skills Used" section listing all skills and rules you referenced or applied during this task.
+
+Format:
+```
+### Skills Used
+- **<skill-or-rule-name>**: <brief description of how it was applied>
+```
+
+If no skills or rules were referenced, report "None".

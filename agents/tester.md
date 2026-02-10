@@ -251,3 +251,15 @@ Before completing test writing:
 - Implementation (use **frontend-implementer** / **backend-implementer**)
 - Security audit (use **security-reviewer**)
 - Architecture design (done in Phase 2)
+
+## Skills Used Reporting
+
+At the end of your response, you MUST include a "Skills Used" section listing all skills and rules you referenced or applied during this task.
+
+Format:
+```
+### Skills Used
+- **<skill-or-rule-name>**: <brief description of how it was applied>
+```
+
+If no skills or rules were referenced, report "None".

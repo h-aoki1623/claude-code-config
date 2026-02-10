@@ -81,3 +81,15 @@ If a question is ambiguous or you need more context:
 - Ask clarifying questions
 - State any assumptions you're making
 - Provide multiple possible interpretations if relevant
+
+## Skills Used Reporting
+
+At the end of your response, you MUST include a "Skills Used" section listing all skills and rules you referenced or applied during this task.
+
+Format:
+```
+### Skills Used
+- **<skill-or-rule-name>**: <brief description of how it was applied>
+```
+
+If no skills or rules were referenced, report "None".
