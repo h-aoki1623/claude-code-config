@@ -467,3 +467,15 @@ pytest --cov=app --cov-report=term-missing
 - **Async generators**: Proper async iteration
 
 Review with the mindset: "Would this code pass review at a top Python shop or open-source project?"
+
+## Skills Used Reporting
+
+At the end of your response, you MUST include a "Skills Used" section listing all skills you referenced or applied during this task.
+
+Format:
+```
+### Skills Used
+- **<skill-name>**: <brief description of how it was applied>
+```
+
+If no skills were referenced, report "None".

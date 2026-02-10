@@ -652,3 +652,15 @@ ORDER BY rank DESC;
 **Remember**: Database issues are often the root cause of application performance problems. Optimize queries and schema design early. Use EXPLAIN ANALYZE to verify assumptions. Always index foreign keys and RLS policy columns.
 
 *Patterns adapted from [Supabase Agent Skills](https://github.com/supabase/agent-skills) under MIT license.*
+
+## Skills Used Reporting
+
+At the end of your response, you MUST include a "Skills Used" section listing all skills you referenced or applied during this task.
+
+Format:
+```
+### Skills Used
+- **<skill-name>**: <brief description of how it was applied>
+```
+
+If no skills were referenced, report "None".

@@ -543,3 +543,15 @@ After security review:
 ---
 
 **Remember**: Security is not optional, especially for platforms handling real money. One vulnerability can cost users real financial losses. Be thorough, be paranoid, be proactive.
+
+## Skills Used Reporting
+
+At the end of your response, you MUST include a "Skills Used" section listing all skills you referenced or applied during this task.
+
+Format:
+```
+### Skills Used
+- **<skill-name>**: <brief description of how it was applied>
+```
+
+If no skills were referenced, report "None".

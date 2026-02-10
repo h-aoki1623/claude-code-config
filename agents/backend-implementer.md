@@ -180,3 +180,15 @@ Before completing implementation:
 - Database review (use **database-reviewer**)
 - Test writing (done in Phase 4)
 - Architecture design (done in Phase 2)
+
+## Skills Used Reporting
+
+At the end of your response, you MUST include a "Skills Used" section listing all skills you referenced or applied during this task.
+
+Format:
+```
+### Skills Used
+- **<skill-name>**: <brief description of how it was applied>
+```
+
+If no skills were referenced, report "None".

@@ -795,3 +795,15 @@ After E2E test run:
 ---
 
 **Remember**: E2E tests are your last line of defense before production. They catch integration issues that unit tests miss. Invest time in making them stable, fast, and comprehensive. For Example Project, focus especially on financial flows - one bug could cost users real money.
+
+## Skills Used Reporting
+
+At the end of your response, you MUST include a "Skills Used" section listing all skills you referenced or applied during this task.
+
+Format:
+```
+### Skills Used
+- **<skill-name>**: <brief description of how it was applied>
+```
+
+If no skills were referenced, report "None".
