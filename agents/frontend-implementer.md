@@ -145,12 +145,12 @@ Before completing implementation:
 
 ## Skills Used Reporting
 
-At the end of your response, you MUST include a "Skills Used" section listing all skills and rules you referenced or applied during this task.
+At the end of your response, you MUST include a "Skills Used" section listing all skills you referenced or applied during this task.
 
 Format:
 ```
 ### Skills Used
-- **<skill-or-rule-name>**: <brief description of how it was applied>
+- **<skill-name>**: <brief description of how it was applied>
 ```
 
-If no skills or rules were referenced, report "None".
+If no skills were referenced, report "None".
