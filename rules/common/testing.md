@@ -2,28 +2,64 @@
 
 ## Minimum Test Coverage: 80%
 
-Test Types (ALL required):
-1. **Unit Tests** - Individual functions, utilities, components
-2. **Integration Tests** - API endpoints, database operations
-3. **E2E Tests** - Critical user flows (framework chosen per language)
+Test Types:
+1. **Unit Tests** - Individual functions, utilities, components - use **tester**
+2. **Integration Tests** - API endpoints, database operations - use **tester**
+3. **E2E Tests** - Critical user flows - use **e2e-tester**
 
-## Test-Driven Development
+## Testing Strategy by Workflow
 
-MANDATORY workflow:
-1. Write test first (RED)
-2. Run test - it should FAIL
-3. Write minimal implementation (GREEN)
-4. Run test - it should PASS
-5. Refactor (IMPROVE)
-6. Verify coverage (80%+)
+Testing timing and approach vary by workflow type (see [workflow.md](workflow.md)):
+
+| Workflow | When to Test | Approach |
+|---|---|---|
+| **Feature** | After implementation (Phase 4) | Use **tester** for unit + integration, **e2e-tester** for E2E |
+| **Bugfix** | Before fix (reproduction) + after fix (coverage check) | Reproduction test first, then verify coverage |
+| **Refactor** | Before refactor (safety net) + after refactor (coverage check) | Safety tests first, then verify behavior preserved |
+| **DB Change** | After implementation | Focus on integration tests for migrations and queries |
+
+## Edge Cases (MUST Test)
+
+1. **Null/Undefined** - What if input is null or undefined?
+2. **Empty** - What if array/string/object is empty?
+3. **Invalid Types** - What if wrong type is passed?
+4. **Boundaries** - Min/max values, off-by-one errors
+5. **Error Paths** - Network failures, database errors, timeout
+6. **Special Characters** - Unicode, emojis, SQL special characters
+
+## Test Quality Rules
+
+- Test behavior, not implementation details
+- Tests must be independent (no shared mutable state)
+- Use descriptive test names describing what is tested
+- Arrange-Act-Assert structure
+- Mock external dependencies for isolation
+- One assertion per test (or logically related assertions)
+- Keep tests fast (unit tests < 50ms each)
+- Clean up after tests (no side effects between tests)
+- Review coverage reports to identify gaps
+
+## Common Anti-Patterns
+
+1. **Testing Implementation Details** - Test user-visible behavior, not internal state or private methods
+2. **Brittle Selectors** - Use semantic selectors (role, testid, text) over CSS classes
+3. **No Test Isolation** - Each test must set up its own data; never depend on previous test results
+
+## Test File Placement
+
+| Test Type | Frontend (TypeScript) | Backend (Python) |
+|---|---|---|
+| **Unit** | Colocated: `*.test.tsx` next to source | `tests/unit/test_*.py` |
+| **Integration** | `tests/integration/*.test.ts` | `tests/integration/test_*.py` |
+| **E2E** | Top-level `/e2e/` (shared across FE+BE) | — |
 
 ## Troubleshooting Test Failures
 
-1. Use **tdd-guide** agent
-2. Check test isolation
-3. Verify mocks are correct
-4. Fix implementation, not tests (unless tests are wrong)
+1. Check test isolation
+2. Verify mocks are correct
+3. Fix implementation, not tests (unless tests are wrong)
 
 ## Agent Support
 
-- **tdd-guide** - Use PROACTIVELY for new features, enforces write-tests-first
+- **tester** - Unit tests + integration tests
+- **e2e-tester** - E2E tests for critical user flows
