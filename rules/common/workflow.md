@@ -25,13 +25,16 @@ Before starting work, classify the task to select the appropriate workflow:
 
 Spec-Driven: define specifications before writing code.
 
-### Phase 1: Requirements
+### Phase 1: Requirements (Plan Mode)
 
 1. **Requirements Definition**
    - Clarify ambiguous or incomplete requirements with the user
    - Define scope, constraints, and acceptance criteria
    - Define main screens and user flows (normal flows)
    - Skip if requirements are already clear and well-defined
+   - **Scope boundary**: Do NOT make design decisions here (architecture, API structure, DB schema, error handling strategy, UI component structure). Those belong to Phase 2.
+
+> **Mode transition**: Exit Plan Mode (ExitPlanMode) after Phase 1 approval. Phase 2 onwards MUST run in normal mode to enable subagent execution. Do NOT remain in Plan Mode after Phase 1.
 
 ### Phase 2: Design
 
@@ -66,6 +69,7 @@ Design elements are executed sequentially. Skip elements not relevant to the fea
 7. **Implementation Plan** - Use **planner** agent
    - Create step-by-step plan based on all design outputs
    - Break down into phases with dependencies and risks
+   - Pause for user approval only if the user explicitly requested it
 
 ### Phase 3: Implement
 
