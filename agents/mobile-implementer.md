@@ -176,7 +176,7 @@ Before completing implementation:
 - Security audit (use **security-reviewer**)
 - Test writing (done in Phase 4)
 - Architecture design (done in Phase 2)
-- E2E testing (use **mobile-e2e-tester** when available — planned agent)
+- E2E testing (use **mobile-e2e-tester** with Maestro)
 
 ## Skills Used Reporting
 

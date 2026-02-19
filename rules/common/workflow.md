@@ -6,7 +6,7 @@ Before starting work, classify the task to select the appropriate workflow:
 
 | Type | When to Use | Key Agents |
 |---|---|---|
-| **Feature** | New functionality | architect, planner, code-reviewer, security-reviewer, web-e2e-tester |
+| **Feature** | New functionality | architect, planner, code-reviewer, security-reviewer, web-e2e-tester / mobile-e2e-tester |
 | **Bugfix** | Fixing incorrect behavior | code-reviewer |
 | **Refactor** | Restructuring without behavior change | architect, refactor-cleaner, code-reviewer |
 | **DB Change** | Schema, migration, query optimization | architect, database-reviewer, security-reviewer |
@@ -83,7 +83,7 @@ Design elements are executed sequentially. Skip elements not relevant to the fea
    - If tightly coupled, implement sequentially
 10. **Build Verification**
     - Use **build-error-resolver** if build fails
-    - **Mobile**: Verify both iOS (`pod install` + Xcode build) and Android (Gradle build)
+    - **Mobile (Expo CNG)**: Verify with `npx expo export` and `eas build` (ios/android directories are generated, not committed)
 
 ### Phase 4: Verify
 
@@ -100,7 +100,7 @@ Design elements are executed sequentially. Skip elements not relevant to the fea
 
 13. **E2E Tests** (critical user flows)
     - Web: use **web-e2e-tester** (Playwright)
-    - Mobile: use **mobile-e2e-tester** (Detox/Maestro) when available
+    - Mobile: use **mobile-e2e-tester** (Maestro)
 
 ### Phase 5: Finalize
 

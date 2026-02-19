@@ -118,6 +118,95 @@ function getHapticFeedback(): void {
 // For component differences: use .ios.tsx / .android.tsx file extensions
 ```
 
+## Expo CNG (Continuous Native Generation)
+
+Expo CNG generates `ios/` and `android/` directories on demand. They are NOT committed to git.
+
+### Project Structure
+
+```
+app.config.ts        # Single source of truth for native configuration
+package.json
+src/
+e2e/                 # Maestro flows
+.gitignore           # Must include ios/ and android/
+```
+
+### .gitignore
+
+```
+# Expo CNG — native dirs are generated, not committed
+ios/
+android/
+```
+
+### app.config.ts
+
+All native configuration lives here — NOT in Xcode or Gradle files:
+
+```typescript
+import { ExpoConfig, ConfigContext } from 'expo/config'
+
+export default ({ config }: ConfigContext): ExpoConfig => ({
+  ...config,
+  name: 'MyApp',
+  slug: 'my-app',
+  scheme: 'myapp',
+  ios: {
+    bundleIdentifier: 'com.example.myapp',
+    supportsTablet: true,
+  },
+  android: {
+    package: 'com.example.myapp',
+    adaptiveIcon: {
+      foregroundImage: './assets/adaptive-icon.png',
+      backgroundColor: '#ffffff',
+    },
+  },
+  plugins: [
+    // Config Plugins for native customization
+    'expo-router',
+    'expo-secure-store',
+    ['expo-camera', { cameraPermission: 'Allow $(PRODUCT_NAME) to access your camera.' }],
+  ],
+})
+```
+
+### Config Plugins
+
+For native customization that `app.config.ts` doesn't cover, use Config Plugins instead of editing Xcode/Gradle directly:
+
+```typescript
+import { ConfigPlugin, withInfoPlist } from 'expo/config-plugins'
+
+// Config Plugins use mutation by design (Expo convention)
+const withCustomConfig: ConfigPlugin = (config) => {
+  return withInfoPlist(config, (config) => {
+    config.modResults.NSLocationWhenInUseUsageDescription = 'Required for maps'
+    return config
+  })
+}
+```
+
+### Build Commands
+
+```bash
+# Development
+npx expo start              # Start Metro dev server
+npx expo run:ios            # Build and run on iOS Simulator
+npx expo run:android        # Build and run on Android Emulator
+
+# Production (EAS Build)
+eas build --platform ios     # Build iOS binary
+eas build --platform android # Build Android binary
+
+# OTA Updates
+eas update                   # Push JS bundle update
+
+# Verify build (CI)
+npx expo export              # Export JS bundle (quick validation)
+```
+
 ## Reference
 
 - See skill: `react-native-best-practices` for performance patterns (FlashList, Reanimated, Turbo Modules)

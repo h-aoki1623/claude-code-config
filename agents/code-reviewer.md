@@ -52,6 +52,18 @@ Include specific examples of how to fix issues.
 - Mutation patterns
 - Missing tests for new code
 
+## React Native Checks (HIGH — when reviewing RN code)
+
+- FlatList/ScrollView used for large lists (should use FlashList)
+- Inline styles instead of StyleSheet.create()
+- Web-only APIs used (window, document, localStorage)
+- Missing platform-specific handling (iOS safe areas, Android back gesture)
+- JS thread blocking (heavy computation on main thread, should use Reanimated worklets)
+- Missing accessibility labels (accessibilityLabel, accessibilityRole)
+- AsyncStorage used for secrets (should use expo-secure-store)
+- Touch targets below 44pt (iOS) / 48dp (Android)
+- Animated API used instead of Reanimated for complex animations
+
 ## Performance (MEDIUM)
 
 - Inefficient algorithms (O(n²) when O(n log n) possible)

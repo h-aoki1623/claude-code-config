@@ -54,17 +54,51 @@ function renderWithNavigation(component: React.ReactElement) {
 
 ## E2E Testing
 
-Use **Detox** or **Maestro** for end-to-end testing on simulators/devices.
+Use **Maestro** for end-to-end testing on simulators/emulators.
 
 - Playwright is for web only and does NOT apply to React Native
-- Use **mobile-e2e-tester** agent (when available) for mobile E2E tests
+- Use **mobile-e2e-tester** agent for mobile E2E tests
+- Maestro uses YAML-based declarative flows — no programming language required
+- Same flow files run on both iOS and Android
+
+### Basic Maestro Flow
+
+```yaml
+# e2e/flows/auth/login.yaml
+appId: com.example.myapp
+---
+- launchApp
+- assertVisible: "Welcome"
+- tapOn: "Log In"
+- tapOn: "Email"
+- inputText: "test@example.com"
+- tapOn: "Password"
+- inputText: "testpassword123"
+- tapOn: "Sign In"
+- assertVisible: "Home"
+- takeScreenshot: "after-login"
+```
+
+### Running Maestro Tests
+
+```bash
+# Run a single flow
+maestro test e2e/flows/auth/login.yaml
+
+# Run all flows
+maestro test e2e/flows/
+
+# Interactive mode (build flows step-by-step)
+maestro studio
+```
 
 ### Platform Test Matrix
 
 | Scope | iOS | Android |
 |---|---|---|
 | Unit / Integration | Jest (shared) | Jest (shared) |
-| E2E | Detox / Maestro (iOS Simulator) | Detox / Maestro (Android Emulator) |
+| E2E | Maestro (iOS Simulator) | Maestro (Android Emulator) |
+| CI | EAS Workflows (`eas/maestro_test`) | EAS Workflows (`eas/maestro_test`) |
 | Device testing | TestFlight / physical device | Internal testing track / physical device |
 
 ## Coverage

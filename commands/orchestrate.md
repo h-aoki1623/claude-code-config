@@ -8,10 +8,16 @@ Agent workflow execution aligned with [workflow.md](../rules/common/workflow.md)
 
 ## Workflow Types
 
-### feature
-Spec-Driven feature implementation:
+### feature (Web)
+Spec-Driven feature implementation (Web frontend):
 ```
 architect -> planner -> frontend-implementer ‖ backend-implementer -> build-error-resolver -> tester -> code-reviewer ‖ security-reviewer ‖ database-reviewer ‖ python-reviewer -> web-e2e-tester -> doc-updater
+```
+
+### feature-mobile
+Spec-Driven feature implementation (React Native mobile):
+```
+architect -> planner -> mobile-implementer ‖ backend-implementer -> build-error-resolver -> tester -> code-reviewer ‖ security-reviewer ‖ database-reviewer ‖ python-reviewer -> mobile-e2e-tester -> doc-updater
 ```
 
 ### bugfix
@@ -91,7 +97,8 @@ Executes:
    - Output: `HANDOFF: planner -> [implement]`
 
 3. **Implementation Phase** (parallel where applicable)
-   - **frontend-implementer**: UI components, state, API integration (based on API contracts + UI design)
+   - **frontend-implementer** (Web): UI components, state, API integration (based on API contracts + UI design)
+   - **mobile-implementer** (Mobile): Screens, navigation, platform-specific code (based on API contracts + UI design)
    - **backend-implementer**: API endpoints, DB operations, business logic (based on API contracts + DB design)
    - Output: `HANDOFF: [implement] -> build-error-resolver`
 
@@ -155,7 +162,8 @@ RECOMMENDATION
 ## Arguments
 
 $ARGUMENTS:
-- `feature <description>` - Spec-Driven feature workflow
+- `feature <description>` - Spec-Driven feature workflow (Web)
+- `feature-mobile <description>` - Spec-Driven feature workflow (Mobile/React Native)
 - `bugfix <description>` - Reproduce-First bug fix workflow
 - `refactor <description>` - Safety-Net-First refactoring workflow
 - `db-change <description>` - Schema-First database change workflow
