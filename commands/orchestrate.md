@@ -11,7 +11,7 @@ Agent workflow execution aligned with [workflow.md](../rules/common/workflow.md)
 ### feature
 Spec-Driven feature implementation:
 ```
-architect -> planner -> frontend-implementer ‖ backend-implementer -> build-error-resolver -> tester -> code-reviewer ‖ security-reviewer ‖ database-reviewer ‖ python-reviewer -> e2e-tester -> doc-updater
+architect -> planner -> frontend-implementer ‖ backend-implementer -> build-error-resolver -> tester -> code-reviewer ‖ security-reviewer ‖ database-reviewer ‖ python-reviewer -> web-e2e-tester -> doc-updater
 ```
 
 ### bugfix

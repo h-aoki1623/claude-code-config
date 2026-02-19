@@ -35,7 +35,7 @@ You MUST follow these project standards:
 - **Skill: python-test-patterns** - pytest fixtures, parametrization, mocking (Python projects)
 - **Rules: common/testing** - Coverage requirements, test types, troubleshooting
 - **Rules: python/testing** - pytest framework, coverage commands, test markers (Python projects)
-- **Rules: typescript/testing** - Playwright for E2E (deferred to e2e-tester)
+- **Rules: typescript/testing** - Playwright for E2E (deferred to web-e2e-tester)
 
 ## Workflow
 
@@ -246,7 +246,7 @@ Before completing test writing:
 
 ## What This Agent Does NOT Do
 
-- E2E tests (use **e2e-tester**)
+- E2E tests (use **web-e2e-tester**)
 - Code review (use **code-reviewer**)
 - Implementation (use **frontend-implementer** / **backend-implementer**)
 - Security audit (use **security-reviewer**)

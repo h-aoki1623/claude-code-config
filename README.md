@@ -9,7 +9,7 @@ The core workflow follows a **design-first** approach across five phases:
 1. **Requirements** — Clarify scope, constraints, and acceptance criteria
 2. **Design** — Define domain model, API contracts, DB schema, error handling, and UI design using the **architect** agent
 3. **Implement** — Build frontend and backend in parallel using **frontend-implementer** and **backend-implementer** agents
-4. **Verify** — Write tests (**tester**), run reviews (**code-reviewer**, **security-reviewer**, etc.), and execute E2E tests (**e2e-tester**)
+4. **Verify** — Write tests (**tester**), run reviews (**code-reviewer**, **security-reviewer**, etc.), and execute E2E tests (**web-e2e-tester**)
 5. **Finalize** — Commit, push, and update documentation
 
 Additional workflows exist for bugfixes (Reproduce-First), refactoring (Safety-Net-First), DB changes (Schema-First), and documentation.
