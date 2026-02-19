@@ -35,7 +35,7 @@ You MUST follow these project standards:
 - **Skill: python-test-patterns** - pytest fixtures, parametrization, mocking (Python projects)
 - **Rules: common/testing** - Coverage requirements, test types, troubleshooting
 - **Rules: python/testing** - pytest framework, coverage commands, test markers (Python projects)
-- **Rules: typescript/testing** - Playwright for E2E (deferred to e2e-tester)
+- **Rules: typescript/testing** - Playwright for E2E (deferred to web-e2e-tester)
 
 ## Workflow
 
@@ -244,11 +244,64 @@ Before completing test writing:
 - [ ] Coverage is 80%+ (verify with coverage report)
 - [ ] 100% coverage for critical business logic
 
+## React Native Testing
+
+### React Native Testing Library
+
+```typescript
+import { render, screen, fireEvent } from '@testing-library/react-native'
+
+describe('UserProfile', () => {
+  it('displays user name', () => {
+    render(<UserProfile name="Alice" />)
+    expect(screen.getByText('Alice')).toBeTruthy()
+  })
+
+  it('calls onEdit when pressed', () => {
+    const onEdit = jest.fn()
+    render(<UserProfile name="Alice" onEdit={onEdit} />)
+    fireEvent.press(screen.getByRole('button', { name: 'Edit' }))
+    expect(onEdit).toHaveBeenCalledTimes(1)
+  })
+})
+```
+
+### Native Module Mocking
+
+```typescript
+// jest.setup.js
+jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper')
+
+jest.mock('@react-native-async-storage/async-storage', () =>
+  require('@react-native-async-storage/async-storage/jest/async-storage-mock')
+)
+
+jest.mock('expo-secure-store', () => ({
+  setItemAsync: jest.fn(),
+  getItemAsync: jest.fn(),
+  deleteItemAsync: jest.fn(),
+}))
+```
+
+### Navigation Testing (Expo Router)
+
+```typescript
+import { renderRouter } from 'expo-router/testing-library'
+
+it('navigates to detail screen', async () => {
+  renderRouter(
+    { index: () => <HomeScreen />, 'detail/[id]': () => <DetailScreen /> },
+    { initialUrl: '/' }
+  )
+  // Test navigation
+})
+```
+
 ## What This Agent Does NOT Do
 
-- E2E tests (use **e2e-tester**)
+- E2E tests — Web: use **web-e2e-tester**, Mobile: use **mobile-e2e-tester**
 - Code review (use **code-reviewer**)
-- Implementation (use **frontend-implementer** / **backend-implementer**)
+- Implementation (use **frontend-implementer** / **backend-implementer** / **mobile-implementer**)
 - Security audit (use **security-reviewer**)
 - Architecture design (done in Phase 2)
 

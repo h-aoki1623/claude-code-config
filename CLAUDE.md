@@ -14,7 +14,7 @@ A set of agents, commands, rules, and skills that configure Claude Code to follo
 
 ## Project Structure
 
-- `agents/` — Specialized agents (architect, planner, frontend-implementer, backend-implementer, tester, code-reviewer, etc.)
+- `agents/` — Specialized agents (architect, planner, frontend-implementer, mobile-implementer, backend-implementer, tester, code-reviewer, etc.)
 - `commands/` — Slash commands that invoke agent workflows
 - `rules/` — Coding standards, workflow definitions, and security guidelines (common + language-specific)
 - `skills/` — Reference patterns and best practices per language/domain

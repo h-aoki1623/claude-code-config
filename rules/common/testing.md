@@ -5,7 +5,7 @@
 Test Types:
 1. **Unit Tests** - Individual functions, utilities, components - use **tester**
 2. **Integration Tests** - API endpoints, database operations - use **tester**
-3. **E2E Tests** - Critical user flows - use **e2e-tester**
+3. **E2E Tests** - Critical user flows - use **web-e2e-tester** (web) or **mobile-e2e-tester** (mobile)
 
 ## Testing Strategy by Workflow
 
@@ -13,7 +13,7 @@ Testing timing and approach vary by workflow type (see [workflow.md](workflow.md
 
 | Workflow | When to Test | Approach |
 |---|---|---|
-| **Feature** | After implementation (Phase 4) | Use **tester** for unit + integration, **e2e-tester** for E2E |
+| **Feature** | After implementation (Phase 4) | Use **tester** for unit + integration, **web-e2e-tester** (web) or **mobile-e2e-tester** (mobile) for E2E |
 | **Bugfix** | Before fix (reproduction) + after fix (coverage check) | Reproduction test first, then verify coverage |
 | **Refactor** | Before refactor (safety net) + after refactor (coverage check) | Safety tests first, then verify behavior preserved |
 | **DB Change** | After implementation | Focus on integration tests for migrations and queries |
@@ -62,4 +62,5 @@ Testing timing and approach vary by workflow type (see [workflow.md](workflow.md
 ## Agent Support
 
 - **tester** - Unit tests + integration tests
-- **e2e-tester** - E2E tests for critical user flows
+- **web-e2e-tester** - Web E2E tests (Playwright)
+- **mobile-e2e-tester** - Mobile E2E tests (Maestro)

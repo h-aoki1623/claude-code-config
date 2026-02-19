@@ -495,6 +495,60 @@ npm install --save-dev audit-ci
 }
 ```
 
+## Mobile Security (React Native)
+
+When reviewing React Native / Expo CNG code, check these additional patterns:
+
+### Sensitive Data Storage (CRITICAL)
+
+```typescript
+// ❌ CRITICAL: Secrets in AsyncStorage (unencrypted, readable by other apps on rooted devices)
+import AsyncStorage from '@react-native-async-storage/async-storage'
+await AsyncStorage.setItem('auth_token', token)
+
+// ✅ CORRECT: Use SecureStore (iOS Keychain / Android Keystore)
+import * as SecureStore from 'expo-secure-store'
+await SecureStore.setItemAsync('auth_token', token)
+```
+
+### Deep Link Validation (HIGH)
+
+```typescript
+// ❌ HIGH: No validation of deep link parameters
+const { id } = useLocalSearchParams()
+await fetchUser(id) // id could be anything
+
+// ✅ CORRECT: Validate deep link input
+const { id } = useLocalSearchParams()
+const schema = z.string().uuid()
+const validId = schema.parse(id)
+await fetchUser(validId)
+```
+
+### Bundle Security (HIGH)
+
+```typescript
+// ❌ HIGH: Secrets in JS bundle (extractable from APK/IPA)
+const API_KEY = 'sk-proj-xxxxx'
+
+// ✅ CORRECT: Server-side proxy or runtime environment
+// Use EAS environment variables + expo-constants
+import Constants from 'expo-constants'
+const apiBaseUrl = Constants.expoConfig?.extra?.apiBaseUrl
+```
+
+### Mobile-Specific Security Checklist
+
+- [ ] Secrets stored in SecureStore/Keychain (NOT AsyncStorage)
+- [ ] No secrets in JS bundle (extractable from app binary)
+- [ ] Deep link parameters validated with Zod
+- [ ] Certificate pinning for sensitive API calls
+- [ ] Biometric auth for sensitive operations (expo-local-authentication)
+- [ ] Clipboard data cleared after sensitive operations
+- [ ] Screenshot prevention on sensitive screens (Android: FLAG_SECURE)
+- [ ] No sensitive data in console.log (stripped in production)
+- [ ] OTA updates use code signing (expo-updates)
+
 ## Best Practices
 
 1. **Defense in Depth** - Multiple layers of security

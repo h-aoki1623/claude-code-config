@@ -6,7 +6,7 @@ Before starting work, classify the task to select the appropriate workflow:
 
 | Type | When to Use | Key Agents |
 |---|---|---|
-| **Feature** | New functionality | architect, planner, code-reviewer, security-reviewer, e2e-tester |
+| **Feature** | New functionality | architect, planner, code-reviewer, security-reviewer, web-e2e-tester / mobile-e2e-tester |
 | **Bugfix** | Fixing incorrect behavior | code-reviewer |
 | **Refactor** | Restructuring without behavior change | architect, refactor-cleaner, code-reviewer |
 | **DB Change** | Schema, migration, query optimization | architect, database-reviewer, security-reviewer |
@@ -59,12 +59,14 @@ Design elements are executed sequentially. Skip elements not relevant to the fea
    - Classify expected errors (validation, auth, external API, timeout, etc.)
    - Define error response format and status codes
    - Define retry strategies for transient failures
+   - **Mobile**: Include offline/network error handling and retry with connectivity awareness
 
 6. **UI Design** (user-facing features)
    - Design component structure and responsibilities
    - Define state management strategy (client-side state, loading, error display)
    - Design error screens and recovery flows
    - Supplement screens/flows not covered in Phase 1
+   - **Mobile**: Define navigation structure, platform-specific adaptations (iOS/Android), and safe area handling
 
 7. **Implementation Plan** - Use **planner** agent
    - Create step-by-step plan based on all design outputs
@@ -74,12 +76,14 @@ Design elements are executed sequentially. Skip elements not relevant to the fea
 ### Phase 3: Implement
 
 8. **Create Branch**
-9. **Implementation** (parallel where frontend and backend are independent)
-   - Frontend: use **frontend-implementer** agent (based on API contracts + UI design)
+9. **Implementation** (parallel where frontend/mobile and backend are independent)
+   - Web frontend: use **frontend-implementer** agent (based on API contracts + UI design)
+   - Mobile (React Native): use **mobile-implementer** agent (based on API contracts + UI design)
    - Backend: use **backend-implementer** agent (based on API contracts + DB design)
    - If tightly coupled, implement sequentially
 10. **Build Verification**
     - Use **build-error-resolver** if build fails
+    - **Mobile (Expo CNG)**: Verify with `npx expo export` and `eas build` (ios/android directories are generated, not committed)
 
 ### Phase 4: Verify
 
@@ -95,7 +99,8 @@ Design elements are executed sequentially. Skip elements not relevant to the fea
     - **python-reviewer**: PEP 8, type hints, Pythonic idioms (Python projects)
 
 13. **E2E Tests** (critical user flows)
-    - Use **e2e-tester** for user-facing features
+    - Web: use **web-e2e-tester** (Playwright)
+    - Mobile: use **mobile-e2e-tester** (Maestro)
 
 ### Phase 5: Finalize
 
@@ -117,7 +122,7 @@ Reproduce-First: confirm the bug before fixing.
 6. **Test Coverage** - Verify reproduction test is sufficient; add tests if needed
    - Unit tests for the fixed behavior
    - Integration tests if the bug spans multiple components
-   - E2E tests if the bug affects a user flow - use **e2e-tester**
+   - E2E tests if the bug affects a user flow - use **web-e2e-tester** (web) or **mobile-e2e-tester** (mobile)
 7. **Review** (run in parallel where possible)
    - **code-reviewer**: quality, patterns, maintainability
    - **security-reviewer**: vulnerabilities, input validation, secrets (auth/payment/API code)
@@ -138,7 +143,7 @@ Safety-Net-First: ensure existing behavior is protected.
 6. **Test Coverage** - Verify safety tests still pass; add tests if coverage gaps remain
    - Unit tests to verify refactored code behaves identically
    - Integration tests for changed interfaces or boundaries
-   - E2E tests if user-facing behavior could be affected - use **e2e-tester**
+   - E2E tests if user-facing behavior could be affected - use **web-e2e-tester** (web) or **mobile-e2e-tester** (mobile)
 7. **Review** (run in parallel where possible)
    - **code-reviewer**: quality, patterns, maintainability
    - **security-reviewer**: vulnerabilities, input validation, secrets (auth/payment/API code)
@@ -162,7 +167,7 @@ Schema-First: design the schema before writing application code.
 5. **Test Coverage** - Verify existing tests pass; add tests for new or changed behavior
    - Unit tests for data access logic
    - Integration tests for migrations and DB operations
-   - E2E tests if schema changes affect user flows - use **e2e-tester**
+   - E2E tests if schema changes affect user flows - use **web-e2e-tester** (web) or **mobile-e2e-tester** (mobile)
 6. **Review** (run in parallel where possible)
    - **code-reviewer**: quality, patterns, maintainability
    - **security-reviewer**: RLS, access control, input validation
