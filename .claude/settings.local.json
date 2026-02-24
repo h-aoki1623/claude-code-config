@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git diff:*)",
+      "Bash(git add:*)",
+      "Bash(git rm:*)",
+      "Bash(git status:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\ndocs: revise workflow to Spec-Driven Development\n\nRestructure the entire Claude Code configuration around a design-first\nmethodology where specifications are defined before implementation.\n\nWorkflow changes:\n- Adopt Spec-Driven Development with 5 phases \\(Requirements, Design,\n  Implement, Verify, Finalize\\)\n- Add Reproduce-First \\(bugfix\\), Safety-Net-First \\(refactor\\),\n  Schema-First \\(DB change\\) workflows\n\nAgent changes:\n- Add frontend-implementer, backend-implementer, tester, e2e-tester\n- Remove tdd-guide \\(replaced by tester\\)\n- Rename e2e-runner to e2e-tester\n\nSkill restructuring:\n- Rename ts-js-patterns to ts-patterns \\(remove JavaScript references\\)\n- Rename python-testing to python-test-patterns\n- Extract ts-test-patterns from generic test-patterns\n- Remove tdd-workflow \\(methodology integrated into workflow.md\\)\n- Move language-agnostic test rules to rules/common/testing.md\n\nDocumentation:\n- Add CLAUDE.md describing the Spec-Driven Development configuration\n- Rewrite README.md with methodology, structure, and usage\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git push:*)",
+      "Bash(gh pr create:*)",
+      "Bash(git commit:*)",
+      "Bash(git checkout:*)"
+    ]
+  }
+}
