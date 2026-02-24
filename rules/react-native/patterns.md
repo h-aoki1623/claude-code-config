@@ -209,6 +209,7 @@ npx expo export              # Export JS bundle (quick validation)
 
 ## Reference
 
+- See skill: `react-native-patterns` for component composition, compound components, navigation, state management, forms, error boundaries, gestures, bottom sheets, animations, and accessibility patterns
 - See skill: `react-native-best-practices` for performance patterns (FlashList, Reanimated, Turbo Modules)
 - See skill: `ios-design` for Apple HIG compliance
 - See skill: `android-design` for Material Design 3 compliance

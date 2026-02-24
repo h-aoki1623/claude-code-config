@@ -34,6 +34,7 @@ You receive these design outputs as context:
 
 You MUST follow these project standards:
 
+- **Skill: react-native-patterns** - Component composition, compound components, navigation, state management, forms, error boundaries, gestures, bottom sheets, animations, accessibility
 - **Skill: react-native-best-practices** - FlashList, Reanimated, Turbo Modules, FPS optimization, bundle size, memory management
 - **Skill: ios-design** - Apple HIG: safe areas, Dynamic Type, VoiceOver, navigation patterns, system gestures
 - **Skill: android-design** - Material Design 3: dynamic color, window size classes, TalkBack, Predictive Back
@@ -46,6 +47,7 @@ You MUST follow these project standards:
 ### Component Implementation
 
 ```typescript
+// Follow react-native-patterns skill: Composition Over Inheritance
 import { StyleSheet, View, Text, Pressable } from 'react-native'
 
 interface Props {
@@ -81,6 +83,7 @@ type RootStackParamList = {
 
 ```typescript
 // Build API clients based on Phase 2 API contracts
+// Follow react-native-patterns skill: Context + Reducer or Persisted State with MMKV
 // Follow ts-patterns skill: ApiResponse format
 
 interface ApiResponse<T> {
@@ -116,6 +119,7 @@ const styles = StyleSheet.create({
 
 ```typescript
 // Implement per error handling design spec
+// Follow react-native-patterns skill: Error Boundary Pattern, Screen State Machine
 // Consider mobile-specific errors:
 // 1. Network errors → offline indicator + retry UI
 // 2. API errors → user-friendly messages
@@ -153,6 +157,7 @@ const styles = StyleSheet.create({
 ## Quality Checklist
 
 Before completing implementation:
+- [ ] All components follow react-native-patterns skill
 - [ ] All components use `StyleSheet.create()` for static styles
 - [ ] TypeScript types match domain model and API contracts
 - [ ] Immutable state updates (spread operator, no mutation)

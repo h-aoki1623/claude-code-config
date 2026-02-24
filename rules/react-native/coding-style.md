@@ -110,4 +110,5 @@ These Web APIs are NOT available in React Native:
 
 ## Reference
 
+See skill: `react-native-patterns` for component composition, navigation, state management, forms, gestures, animations, and accessibility patterns.
 See skill: `react-native-best-practices` for performance optimization and FPS/TTI/bundle size guidelines.
