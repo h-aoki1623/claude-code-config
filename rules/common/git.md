@@ -2,6 +2,7 @@
 
 ### Branching Rules (MUST)
 
+- **Before making any file modifications**, Claude MUST check the current git branch.
 - If the current git branch is `main`, Claude MUST:
   1. Create a new worktree with a new branch using git commands:
      ```bash
@@ -11,9 +12,9 @@
      ```bash
      cd <repo-root>/.claude/worktrees/<branch-name>
      ```
-  3. Only then start planning or implementation
+  3. Only then start making changes
 
-- Claude MUST NEVER start planning or implementation work directly on `main`.
+- Claude MUST NEVER modify files directly on `main`. This applies to ALL changes including documentation, configuration, and rule files.
 
 ### Branch Naming Conventions
 
@@ -98,8 +99,9 @@ When creating PRs:
 3. Draft comprehensive PR summary
 4. Include test plan with TODOs
 5. Push with `-u` flag if new branch
-6. After the PR is created, clean up the worktree:
+6. After the PR is created, clean up the worktree and local branch:
    ```bash
    cd <repo-root>
    git worktree remove .claude/worktrees/<branch-name>
+   git branch -d <branch-name>
    ```
