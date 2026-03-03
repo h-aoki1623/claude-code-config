@@ -3,8 +3,14 @@
 ### Branching Rules (MUST)
 
 - If the current git branch is `main`, Claude MUST:
-  1. Create a new branch following the naming conventions below
-  2. Switch to that branch
+  1. Create a new worktree with a new branch using git commands:
+     ```bash
+     git worktree add .claude/worktrees/<branch-name> -b <branch-name>
+     ```
+  2. Move into the worktree directory:
+     ```bash
+     cd <repo-root>/.claude/worktrees/<branch-name>
+     ```
   3. Only then start planning or implementation
 
 - Claude MUST NEVER start planning or implementation work directly on `main`.
@@ -92,3 +98,8 @@ When creating PRs:
 3. Draft comprehensive PR summary
 4. Include test plan with TODOs
 5. Push with `-u` flag if new branch
+6. After the PR is created, clean up the worktree:
+   ```bash
+   cd <repo-root>
+   git worktree remove .claude/worktrees/<branch-name>
+   ```
