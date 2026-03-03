@@ -81,6 +81,10 @@ Claude MUST use the following branch prefixes and meanings:
   - Changing CI environment variables or secrets configuration
   - Adjusting build/test/deploy pipeline stages
 
+## Message Language (MUST)
+
+Commit messages and PR titles/descriptions MUST be written in the same language as the repository's `README.md`. Before writing any commit message or PR description, check the language used in `README.md` and match it.
+
 ## Commit Message Format
 
 ```
@@ -96,7 +100,7 @@ Types: feat, fix, refactor, docs, test, chore, perf, ci
 When creating PRs:
 1. Analyze full commit history (not just latest commit)
 2. Use `git diff [base-branch]...HEAD` to see all changes
-3. Draft comprehensive PR summary
+3. Draft comprehensive PR summary (in the same language as `README.md`)
 4. Include test plan with TODOs
 5. Push with `-u` flag if new branch
 6. After the PR is created, clean up the worktree and local branch:
