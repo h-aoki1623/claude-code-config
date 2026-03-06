@@ -2,8 +2,8 @@
 
 ### Branching Rules (MUST)
 
-- **Before making any file modifications**, Claude MUST check the current git branch.
-- If the current git branch is `main`, Claude MUST:
+- **Before making any file modifications or creating new files**, Claude MUST check the current git branch.
+- If the current git branch is `main` or `develop`, Claude MUST:
   1. Create a new worktree with a new branch using git commands:
      ```bash
      git worktree add .claude/worktrees/<branch-name> -b <branch-name>
@@ -14,7 +14,7 @@
      ```
   3. Only then start making changes
 
-- Claude MUST NEVER modify files directly on `main`. This applies to ALL changes including documentation, configuration, and rule files.
+- Claude MUST NEVER modify or create files directly on `main` or `develop`. This applies to ALL changes including documentation, configuration, and rule files.
 
 ### Branch Naming Conventions
 
