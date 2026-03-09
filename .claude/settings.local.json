@@ -10,7 +10,7 @@
       "Bash(git commit:*)",
       "Bash(git checkout:*)",
       "Bash(gh pr view --json number,headRepository)",
-      "Bash(git worktree add .claude/worktrees/docs/improve-branching-rules -b docs/improve-branching-rules)"
+      "Bash(git worktree add:*)"
     ]
   }
 }
